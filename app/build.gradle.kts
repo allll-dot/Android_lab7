@@ -36,7 +36,8 @@ android {
 }
 
 dependencies {
-    implementation ("androidx.core:core-ktx:1.0.0")
+    implementation ("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.gson)
     implementation(libs.converter.gson)
