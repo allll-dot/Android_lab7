@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -39,6 +40,11 @@ dependencies {
     implementation ("androidx.core:core-ktx:1.15.0")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.room.runtime)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.room.ktx)
+
     implementation(libs.gson)
     implementation(libs.converter.gson)
     implementation(libs.retrofit2.converter.scalars)
