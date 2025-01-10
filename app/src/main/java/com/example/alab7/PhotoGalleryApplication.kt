@@ -25,6 +25,7 @@ class PhotoGalleryApplication : Application() {
 
     companion object {
         private lateinit var context: Context
+
         fun getAppContext(): Context {
             return context
         }

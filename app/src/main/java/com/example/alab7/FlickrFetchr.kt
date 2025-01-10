@@ -17,21 +17,21 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
+
 private const val TAG = "FlickrFetchr"
+
 class FlickrFetchr {
-
     private val flickrApi: FlickrApi
-
     init {
         val client = OkHttpClient.Builder()
             .addInterceptor(PhotoInterceptor())
             .build()
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://api.flickr.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
+        val retrofit: Retrofit =
+            Retrofit.Builder()
+                .baseUrl("https://api.flickr.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
         flickrApi = retrofit.create(FlickrApi::class.java)
     }
 
@@ -51,10 +51,9 @@ class FlickrFetchr {
         return fetchPhotoMetadata(searchPhotosRequest(query))
     }
 
+
     private fun fetchPhotoMetadata(flickrRequest: Call<FlickrResponse>): LiveData<List<GalleryItem>> {
-
         val responseLiveData : MutableLiveData<List<GalleryItem>> = MutableLiveData()
-
         flickrRequest.enqueue(object : Callback<FlickrResponse> {
             override fun onFailure(call : Call<FlickrResponse>, t: Throwable)
             {
@@ -75,7 +74,6 @@ class FlickrFetchr {
                 responseLiveData.value = galleryItems
             }
         })
-
         return responseLiveData
     }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class PhotoGalleryViewModel(private val app: Application) : AndroidViewModel(app) {
 
+    //val photoRepository : PhotoRepository = PhotoRepository.get()
     val galleryItemLiveData : LiveData<List<GalleryItem>>
     private val flickrFetchr = FlickrFetchr()
     private val mutableSearchTerm = MutableLiveData<String>()
@@ -20,19 +21,16 @@ class PhotoGalleryViewModel(private val app: Application) : AndroidViewModel(app
 
     init {
         mutableSearchTerm.value = QueryPreferences.getStoredQuery(app)
+
         galleryItemLiveData = mutableSearchTerm.switchMap() { searchTerm ->
             if (searchTerm.isBlank()) {
                 flickrFetchr.fetchPhotos()
             } else {
                 flickrFetchr.searchPhotos(searchTerm)
-                if (searchTerm.isBlank()) {
-                    flickrFetchr.fetchPhotos()
-                } else {
-                    flickrFetchr.searchPhotos(searchTerm)
-                }
             }
         }
     }
+
     fun fetchPhotos(query: String = "") {
         QueryPreferences.setStoredQuery(app, query)
         mutableSearchTerm.value = query
